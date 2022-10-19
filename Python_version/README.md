@@ -1,39 +1,58 @@
-## Python version of the Chromatic abberation codes
+## Python version
 
-A simple Python version of the MATLAB codes. Python has some disadvantages and so the MATLAB codes takes precedence but the Python codes provide a starting point to implement this making it more open source friendly.
+A simple Python port of the original MATLAB chromatic aberration correction codes. This version is not intended to replace the MATLAB ones, rather it's an additional option. Recommended to use MATLAB codes as its more optimized and more "plug and play" and has more options. 
 
-## Dependencies:
-All the packages can be installed with pip or pip3(for Python3) [pip](https://pip.pypa.io/en/stable/)
-Included in the requirements.txt
-```bash
-matplotlib==3.5.1
-napari==0.4.12
-numpy==1.21.4
-pandas==1.3.5
-scikit_image==0.19.0
-scikit_learn==1.0.2
-scipy==1.7.3
-seaborn==0.11.2
-skimage==0.0
-```
+## Publication:
+![Screenshot 2022-10-19 160745](https://user-images.githubusercontent.com/29883365/196620792-3c50156e-451d-4cd7-baf7-b9c475638cb3.png)
+
+[Post hoc Correction of Chromatic Aberrations in Large-Scale Volumetric Images in Confocal Microscopy](https://www.frontiersin.org/articles/10.3389/fnana.2021.760063/full)
+
+
+## Dependencies
+
+Following the python libraries needed. All packages are installed using **pip** from pypi website.
+
+    matplotlib==3.5.1
+	napari==0.4.12
+	numpy==1.21.4
+	pandas==1.3.5
+	scikit_image==0.19.0
+	scikit_learn==1.0.2
+	scipy==1.7.3
+	seaborn==0.11.2
+	skimage==0.0
+	tifffile
 
 ## Usage
-The folder consists of two scripts `chromatic_abb_measure.py` and `abberation_correction.py`. The first one does all the image processing and regression calculation and the 2nd one does the corrections based on those calculations. Make sure to keep both of them in the same directory. All the codes are efficiently commented.
 
-The code uses the current distribution of [napari](https://napari.org/), highly interactive image viewer built with Python. 
-```python
-pip install napari[all]
+Code is divided into two parts: `Chromatic_aberration_calculation.py` and `Chromatic_aberration_correction.py` .  Currently, it will only work with ICY spot detection results.xls
 
-```
-<img src="https://user-images.githubusercontent.com/29883365/147657273-b30f9746-30d4-4bca-ad6f-a85fc767d784.png" width="45%"></img> 
+ - `Chromatic_abberation_calculation.py` -> Read the image, read the ICY spot detector .xls files, calculate the regressions, draw the regression lines, save the regression values as a csv.
+ - `Chromatic_abberation_correction.py` -> Read the regression values csv file, read the image to be corrected, make corrections, save the image as tiff(32 bit) `tifffile_imwrite` loves to save as a 32bit image. Saved image is ImageJ compatible and metadata can also be embedded while saving the image.
 
-The viewer looks like this, and is highly interactive in nature and support n-dim viewing. The images shown are multichannel bead images, and the colors are connected-component labelling (`skimage.measure.label`) obtained using `chromatic_abb_measure.py` script.
+*Optional napari codes also have been added for quick visualization using the powerful n-D napari viewer.*
 
-## Comments:
-This code as of now, works perfectly fine but there definitely room for improvement. As of now, the code is easy to edit, and image processing functions can be tuned based on the user's actions. Also, it can be bit slower if the image file is too big. Also, ***be careful of the image axis notations, the input image will have the order (Z,Y,X,C) and the numpy indexing starts from 0.***
+***For more detailed explanation please refer to the original paper*** 
 
 ## Contributing:
-Good Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. No hostile forks. 
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are  **greatly appreciated**.
 
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement". Don't forget to give the project a star! Thanks again!
+
+1.  Fork the Project
+2.  Create your Feature Branch 
+3.  Commit your Changes
+4.  Push to the Branch 
+5.  Open a Pull Request
+
+## License:
+Distributed under GPL-3.0 license.
+
+## Acknowledgements:
+Credits to the original authors of the paper:
+1. [Marcus Lewie](https://loop.frontiersin.org/people/1503524/overview)
+2. [Satoshi Fujimoto](https://loop.frontiersin.org/people/1445674/overview)
+3. [Takeshi Imai](https://loop.frontiersin.org/people/1036459/overview)
+
+*Department of Developmental Neurophysiology, Graduate School of Medical Sciences, Kyushu University, Fukuoka, Japan*
+
